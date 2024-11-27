@@ -116,12 +116,27 @@
         <div class="card">
             <h6 class="header">Campaign Name Modifiers</h6>
             <div class="row">
-                <div class="input-field col s12">
-                    <input id="campaign" type="text" class="validate" value="DPG-Google-Search-PT-PT-Broad" required>
-                    <label for="campaign">Campaign</label>
+                <div class="input-field col s6">
+                    <select id="source" name="source" onchange="handleSourceChange()" required>
+                        <option value="" disabled selected>Select Source</option>
+                        <option value="Google">Google</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="CRM">CRM</option>
+                        <option value="SG">SG</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="Yahoo">Yahoo</option>
+                        <option value="Bing">Bing</option>
+                        <option value="LinkedIn">LinkedIn</option>
+                        <option value="TikTok">TikTok</option>
+                        <option value="Telegram">Telegram</option>
+                        <option value="Twitter/X">Twitter/X</option>
+                        <option value="Adroll">Adroll</option>
+                        <option value="Blog">Blog</option>
+                        <option value="Criteo">Criteo</option>
+                        <option value="manual">Manual Input</option>
+                    </select>
+                    <label for="source">Source</label>
                 </div>
-            </div>$1
-        </div>
                 <div class="input-field col s6">
                     <select id="medium" name="medium" onchange="handleMediumChange()" required>
                         <option value="" disabled selected>Select Medium</option>
