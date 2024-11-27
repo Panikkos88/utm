@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UTM URL Builder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    select, input[type="text"], button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #f8f9fa;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>UTM URL Builder</h1>
+    <form id="utmForm">
+      <label for="baseUrl">Base URL:</label>
+      <input type="text" id="baseUrl" placeholder="Enter your base URL" required>
+
+      <label for="utmSource">UTM Source:</label>
+      <select id="utmSource" required>
+        <option value="">Select source</option>
+        <option value="google">Google</option>
+        <option value="facebook">Facebook</option>
+        <option value="twitter">Twitter</option>
+        <option value="linkedin">LinkedIn</option>
+      </select>
+
+      <label for="utmMedium">UTM Medium:</label>
+      <select id="utmMedium" required>
+        <option value="">Select medium</option>
+        <option value="cpc">CPC</option>
+        <option value="email">Email</option>
+        <option value="social">Social</option>
+        <option value="referral">Referral</option>
+      </select>
+
+      <label for="utmCampaign">UTM Campaign:</label>
+      <select id="utmCampaign" required>
+        <option value="">Select campaign</option>
+        <option value="spring_sale">Spring Sale</option>
+        <option value="summer_sale">Summer Sale</option>
+        <option value="product_launch">Product Launch</option>
+        <option value="newsletter">Newsletter</option>
+      </select>
+
+      <button type="button" onclick="generateUTM()">Generate URL</button>
+    </form>
+
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    function generateUTM() {
+      const baseUrl = document.getElementById('baseUrl').value.trim();
+      const utmSource = document.getElementById('utmSource').value;
+      const utmMedium = document.getElementById('utmMedium').value;
+      const utmCampaign = document.getElementById('utmCampaign').value;
+
+      if (!baseUrl || !utmSource || !utmMedium || !utmCampaign) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      const utmUrl = `${baseUrl}?utm_source=${encodeURIComponent(utmSource)}&utm_medium=${encodeURIComponent(utmMedium)}&utm_campaign=${encodeURIComponent(utmCampaign)}`;
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = utmUrl;
+    }
+  </script>
+</body>
+</html>
