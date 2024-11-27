@@ -180,7 +180,67 @@
     </div>
 
     <script>
-        // JavaScript remains the same as your original code
+        document.addEventListener('DOMContentLoaded', function() {
+            const elems = document.querySelectorAll('select');
+            M.FormSelect.init(elems);
+        });
+
+        function copyToClipboard() {
+            const copyText = document.getElementById("utmResult");
+            copyText.select();
+            document.execCommand("copy");
+            M.toast({ html: 'URL copied to clipboard!', classes: 'rounded' });
+        }
+
+        function handleSourceChange() {
+            const source = document.getElementById("source").value;
+            const campaignInput = document.getElementById("campaign");
+            let campaignValue = campaignInput.value;
+
+            if (campaignValue.includes('-')) {
+                const parts = campaignValue.split('-');
+                parts[1] = source;
+                campaignInput.value = parts.join('-');
+            } else {
+                campaignInput.value = 'DPG-' + source + '-' + campaignValue;
+            }
+        }
+
+        function handleMediumChange() {
+            const medium = document.getElementById("medium").value;
+            const campaignInput = document.getElementById("campaign");
+            let campaignValue = campaignInput.value;
+
+            if (campaignValue.includes('-')) {
+                const parts = campaignValue.split('-');
+                parts[2] = medium;
+                campaignInput.value = parts.join('-');
+            } else {
+                campaignInput.value += '-' + medium;
+            }
+        }
+
+        function buildURL() {
+            const baseUrl = document.getElementById("website").value.trim();
+            const source = document.getElementById("source").value;
+            const medium = document.getElementById("medium").value;
+            const campaign = document.getElementById("campaign").value.trim();
+            const term = document.getElementById("term").value.trim();
+
+            if (!baseUrl || !source || !medium || !campaign) {
+                M.toast({ html: 'Please fill in all required fields', classes: 'rounded' });
+                return;
+            }
+
+            let utmUrl = `${baseUrl}?utm_source=${encodeURIComponent(source)}&utm_medium=${encodeURIComponent(medium)}&utm_campaign=${encodeURIComponent(campaign)}`;
+
+            if (term) {
+                utmUrl += `&utm_term=${encodeURIComponent(term)}`;
+            }
+
+            document.getElementById("utmResult").value = utmUrl;
+            document.getElementById("result").classList.remove("hidden");
+        }
     </script>
 </body>
 </html>
