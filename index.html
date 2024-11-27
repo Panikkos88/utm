@@ -93,7 +93,19 @@
                         <option value="" disabled selected>Select Source</option>
                         <option value="Google">Google</option>
                         <option value="Facebook">Facebook</option>
+                        <option value="CRM">CRM</option>
+                        <option value="SG">SG</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="Yahoo">Yahoo</option>
+                        <option value="Bing">Bing</option>
                         <option value="LinkedIn">LinkedIn</option>
+                        <option value="TikTok">TikTok</option>
+                        <option value="Telegram">Telegram</option>
+                        <option value="Twitter/X">Twitter/X</option>
+                        <option value="Adroll">Adroll</option>
+                        <option value="Blog">Blog</option>
+                        <option value="Criteo">Criteo</option>
+                        <option value="manual">Manual Input</option>
                     </select>
                     <label for="sourceModifier">Source Modifier</label>
                 </div>
@@ -101,15 +113,54 @@
                     <select id="mediumModifier" onchange="updateCampaignName()">
                         <option value="" disabled selected>Select Medium</option>
                         <option value="Social">Social</option>
-                        <option value="Search">Search</option>
                         <option value="Display">Display</option>
+                        <option value="Search">Search</option>
+                        <option value="Email">Email</option>
+                        <option value="Media-buy">Media-buy</option>
+                        <option value="Ebook">Ebook</option>
+                        <option value="Influencer">Influencer</option>
+                        <option value="Blog">Blog</option>
+                        <option value="Remarketing">Remarketing</option>
+                        <option value="Expo">Expo</option>
+                        <option value="Seminar">Seminar</option>
+                        <option value="manual">Manual Input</option>
                     </select>
                     <label for="mediumModifier">Medium Modifier</label>
                 </div>
             </div>
             <div class="row">
+                <div class="input-field col s6">
+                    <select id="countryModifier" onchange="updateCampaignName()">
+                        <option value="" disabled selected>Select Country</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="AU">Australia</option>
+                        <option value="DE">Germany</option>
+                        <option value="FR">France</option>
+                        <option value="BR">Brazil</option>
+                        <option value="IN">India</option>
+                        <option value="CN">China</option>
+                        <option value="JP">Japan</option>
+                    </select>
+                    <label for="countryModifier">Country Modifier</label>
+                </div>
+                <div class="input-field col s6">
+                    <select id="languageModifier" onchange="updateCampaignName()">
+                        <option value="" disabled selected>Select Language</option>
+                        <option value="EN">English</option>
+                        <option value="ES">Spanish</option>
+                        <option value="PT">Portuguese</option>
+                        <option value="AR">Arabic</option>
+                        <option value="TH">Thai</option>
+                        <option value="VI">Vietnamese</option>
+                    </select>
+                    <label for="languageModifier">Language Modifier</label>
+                </div>
+            </div>
+            <div class="row">
                 <div class="input-field col s12">
-                    <input id="campaignName" type="text" class="validate" value="DPG-Google-Search" readonly>
+                    <input id="campaignName" type="text" class="validate" value="DPG-Google-Search-US-EN" readonly>
                     <label for="campaignName">Campaign Name</label>
                 </div>
             </div>
@@ -156,10 +207,14 @@
     function updateCampaignName() {
         const source = document.getElementById("sourceModifier").value;
         const medium = document.getElementById("mediumModifier").value;
+        const country = document.getElementById("countryModifier").value;
+        const language = document.getElementById("languageModifier").value;
 
         let campaignName = "DPG";
         if (source) campaignName += `-${source}`;
         if (medium) campaignName += `-${medium}`;
+        if (country) campaignName += `-${country}`;
+        if (language) campaignName += `-${language}`;
 
         document.getElementById("campaignName").value = campaignName;
     }
