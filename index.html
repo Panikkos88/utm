@@ -1,124 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UTM URL Builder</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      padding: 20px;
-      background-color: #f9f9f9;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      background: #fff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-    }
-
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-
-    select, input[type="text"], button {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-
-    button {
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    .result {
-      margin-top: 20px;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background-color: #f8f9fa;
-      word-wrap: break-word;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>DooPrime UTM-URL Builder</title>
 </head>
 <body>
-  <div class="container">
-    <h1>UTM URL Builder</h1>
-    <form id="utmForm">
-      <label for="baseUrl">Base URL:</label>
-      <input type="text" id="baseUrl" placeholder="Enter your base URL" required>
+<div id="sideMenu" class="side-menu">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <!-- Add your menu items here -->
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+    <a href="#">Link 4</a>
+</div>
 
-      <label for="utmSource">UTM Source:</label>
-      <select id="utmSource" required>
-        <option value="">Select source</option>
-        <option value="google">Google</option>
-        <option value="facebook">Facebook</option>
-        <option value="twitter">Twitter</option>
-        <option value="linkedin">LinkedIn</option>
-      </select>
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Open Menu</span>
+<div class="container center-align">
+    <!-- Logo -->
+    <img src="https://www.dooprime.com/wp-content/themes/DP3-1104/style/images/common/Man_Utd_x_Doo_mobile.png" alt="Dooprime Logo" class="logo mx-auto">
 
-      <label for="utmMedium">UTM Medium:</label>
-      <select id="utmMedium" required>
-        <option value="">Select medium</option>
-        <option value="cpc">CPC</option>
-        <option value="email">Email</option>
-        <option value="social">Social</option>
-        <option value="referral">Referral</option>
-      </select>
+    <h5 class="header">Simple UTM Generator for DooPrime Global Team</h5>
+    <div id="result" class="hidden">
+        <h4>Generated URL:</h4>
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="utmResult" class="materialize-textarea" readonly rows="4"></textarea>
+                <label for="utmResult">Result URL</label>
+                <button class="btn waves-effect waves-light" onclick="copyToClipboard()">Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
 
-      <label for="utmCampaign">UTM Campaign:</label>
-      <select id="utmCampaign" required>
-        <option value="">Select campaign</option>
-        <option value="spring_sale">Spring Sale</option>
-        <option value="summer_sale">Summer Sale</option>
-        <option value="product_launch">Product Launch</option>
-        <option value="newsletter">Newsletter</option>
-      </select>
+    <form class="col s12" id="utmForm">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="website" type="url" class="validate" value="https://www.dooprime.com/en/" required>
+                <label for="website">Website URL</label>
+            </div>
+        </div>
 
-      <button type="button" onclick="generateUTM()">Generate URL</button>
+        <div class="row">
+            <div class="input-field col s12">
+                <select id="source" name="source" onchange="handleSourceChange()" required>
+                    <option value="Google">Google</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="CRM">CRM</option>
+                    <option value="SG">SG</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Yahoo">Yahoo</option>
+                    <option value="Bing">Bing</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="TikTok">TikTok</option>
+                    <option value="Telegram">Telegram</option>
+                    <option value="Twitter/X">Twitter/X</option>
+                    <option value="Adroll">Adroll</option>
+                    <option value="blog">Blog</option>
+                    <option value="Criteo">Criteo</option>
+                    <option value="manual">Manual Input</option>
+                </select>
+                <label for="source">Source</label>
+
+                <div id="customSourceContainer" style="display: none;">
+                    <label for="customSource">Custom Source</label>
+                    <div id="manualSourceInput">
+                        <input type="text" id="customSource" name="customSource">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <select id="medium" name="medium" onchange="handleMediumChange()" required>
+                    <option value="Social">Social</option>
+                    <option value="Display">Display</option>
+                    <option value="Search">Search</option>
+                    <option value="Email">Email</option>
+                    <option value="Media-buy">Media-buy</option>
+                    <option value="Ebook">Ebook</option>
+                    <option value="Influencer">Influencer</option>
+                    <option value="Blog">Blog</option>
+                    <option value="Remarketing">Remarketing</option>
+                    <option value="Expo">Expo</option>
+                    <option value="Seminar">Seminar</option>
+                    <option value="manual">Manual Input</option>
+                </select>
+                <label for="medium">Medium</label>
+
+                <div id="customMediumContainer" style="display: none;">
+                    <label for="customMedium">Custom Medium</label>
+                    <div id="manualMediumInput">
+                        <input type="text" id="customMedium" name="customMedium">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="campaign" type="text" class="validate" value="DPG - Search - Brazil - Portuguese - Broad" required>
+                <label for="campaign">Campaign</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="term" type="text" class="validate">
+                <label for="term">Term</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <select id="content" name="content" onchange="handleContentChange()" required>
+                    <option value="" disabled selected>Select Content</option>
+                    <option value="diversify-your-portfolio">Diversify Your Portfolio</option>
+                    <option value="secure-and-regulated">Secure and Regulated</option>
+                    <option value="home-page">Home Page</option>
+                    <option value="ninth-anniversary-promotion">Ninth Anniversary Promotion</option>
+                    <option value="20-deposit-bonus">20 Percent Deposit Bonus</option>
+                    <option value="manual">Manual Input</option>
+                </select>
+                <label for="content">Content</label>
+
+                <div id="customContentContainer" style="display: none;">
+                    <label for="customContent">Custom Content</label>
+                    <div id="manualContentInput">
+                        <input type="text" id="customContent" name="customContent">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn waves-effect waves-light" type="button" onclick="buildURL()">Build URL</button>
     </form>
+</div>
 
-    <div id="result" class="result"></div>
-  </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
 
-  <script>
-    function generateUTM() {
-      const baseUrl = document.getElementById('baseUrl').value.trim();
-      const utmSource = document.getElementById('utmSource').value;
-      const utmMedium = document.getElementById('utmMedium').value;
-      const utmCampaign = document.getElementById('utmCampaign').value;
-
-      if (!baseUrl || !utmSource || !utmMedium || !utmCampaign) {
-        alert('Please fill in all fields.');
-        return;
-      }
-
-      const utmUrl = `${baseUrl}?utm_source=${encodeURIComponent(utmSource)}&utm_medium=${encodeURIComponent(utmMedium)}&utm_campaign=${encodeURIComponent(utmCampaign)}`;
-
-      const resultDiv = document.getElementById('result');
-      resultDiv.textContent = utmUrl;
+    function copyToClipboard() {
+        var copyText = document.getElementById("utmResult");
+        copyText.select();
+        document.execCommand("copy");
+        M.toast({html: 'URL copied to clipboard!', classes: 'rounded'});
     }
-  </script>
+
+    function buildURL() {
+        let baseUrl = document.getElementById("website").value.trim();
+        let source = document.getElementById("source").value;
+        let medium = document.getElementById("medium").value;
+        let campaign = document.getElementById("campaign").value.trim();
+        let term = document.getElementById("term").value.trim();
+        let content = document.getElementById("content").value;
+
+        if (!baseUrl || !source || !medium || !campaign) {
+            M.toast({html: 'Please fill in all required fields', classes: 'rounded'});
+            return;
+        }
+
+        let utmUrl = `${baseUrl}?utm_source=${encodeURIComponent(source)}&utm_medium=${encodeURIComponent(medium)}&utm_campaign=${encodeURIComponent(campaign)}`;
+
+        if (term) {
+            utmUrl += `&utm_term=${encodeURIComponent(term)}`;
+        }
+
+        if (content) {
+            utmUrl += `&utm_content=${encodeURIComponent(content)}`;
+        }
+
+        document.getElementById("utmResult").value = utmUrl;
+        document.getElementById("result").classList.remove("hidden");
+    }
+</script>
+
 </body>
 </html>
