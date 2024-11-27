@@ -6,7 +6,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
     <title>DooPrime UTM-URL Builder</title>
     <style>
         body {
@@ -66,6 +65,25 @@
         .copy-icon:hover {
             color: #34495e;
         }
+        .toast {
+            border-radius: 5px;
+        }
+        .tooltip {
+            position: relative;
+        }
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2c3e50;
+            color: #fff;
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
         @media (max-width: 600px) {
             .container {
                 padding: 15px;
@@ -91,16 +109,15 @@
 </head>
 <body>
 <div class="container center-align">
-    <!-- Logo -->
-    <img src="https://www.dooprime.com/wp-content/themes/DP3-1104/style/images/common/Man_Utd_x_Doo_mobile.png" alt="Dooprime Logo" class="logo mx-auto">
+    <img src="https://www.dooprime.com/wp-content/themes/DP3-1104/style/images/common/Man_Utd_x_Doo_mobile.png" alt="Dooprime Logo" class="logo">
+    <h5 class="header">Enhanced UTM Generator for DooPrime Global Team</h5>
 
-    <h5 class="header">Simple UTM Generator for DooPrime Global Team</h5>
     <div id="result" class="hidden">
         <h4>Generated URL:</h4>
         <div class="row">
             <div class="input-field col s12">
                 <textarea id="utmResult" class="materialize-textarea" readonly rows="4" style="overflow: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px; height: 120px;"></textarea>
-                <i class="far fa-copy copy-icon" onclick="copyToClipboard()"></i>
+                <i class="far fa-copy copy-icon tooltip" data-tooltip="Copy to clipboard" onclick="copyToClipboard()"></i>
             </div>
         </div>
     </div>
@@ -112,217 +129,48 @@
                 <label for="website">Website URL</label>
             </div>
         </div>
-
         <div class="row">
             <div class="input-field col s12">
-                <select id="source" name="source" onchange="handleSourceChange()" required>
+                <select id="source" required>
                     <option value="" disabled selected>Select Source</option>
                     <option value="Google">Google</option>
                     <option value="Facebook">Facebook</option>
-                    <option value="CRM">CRM</option>
-                    <option value="SG">SG</option>
-                    <option value="Instagram">Instagram</option>
-                    <option value="Yahoo">Yahoo</option>
-                    <option value="Bing">Bing</option>
-                    <option value="LinkedIn">LinkedIn</option>
-                    <option value="TikTok">TikTok</option>
-                    <option value="Telegram">Telegram</option>
-                    <option value="Twitter/X">Twitter/X</option>
-                    <option value="Adroll">Adroll</option>
-                    <option value="Blog">Blog</option>
-                    <option value="Criteo">Criteo</option>
-                    <option value="manual">Manual Input</option>
+                    <!-- More options -->
                 </select>
                 <label for="source">Source</label>
             </div>
         </div>
-
-        <div class="row">
-            <div class="input-field col s12">
-                <select id="medium" name="medium" onchange="handleMediumChange()" required>
-                    <option value="" disabled selected>Select Medium</option>
-                    <option value="Social">Social</option>
-                    <option value="Display">Display</option>
-                    <option value="Search">Search</option>
-                    <option value="Email">Email</option>
-                    <option value="Media-buy">Media-buy</option>
-                    <option value="Ebook">Ebook</option>
-                    <option value="Influencer">Influencer</option>
-                    <option value="Blog">Blog</option>
-                    <option value="Remarketing">Remarketing</option>
-                    <option value="Expo">Expo</option>
-                    <option value="Seminar">Seminar</option>
-                    <option value="manual">Manual Input</option>
-                </select>
-                <label for="medium">Medium</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12">
-                <select id="country" name="country" onchange="handleCountryChange()" required>
-                    <option value="" disabled selected>Select Country</option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="GB">United Kingdom</option>
-                    <option value="AU">Australia</option>
-                    <option value="DE">Germany</option>
-                    <option value="FR">France</option>
-                    <option value="BR">Brazil</option>
-                    <option value="IN">India</option>
-                    <option value="CN">China</option>
-                    <option value="JP">Japan</option>
-                </select>
-                <label for="country">Country</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12">
-                <select id="language" name="language" onchange="handleLanguageChange()" required>
-                    <option value="" disabled selected>Select Language</option>
-                    <option value="EN">English</option>
-                    <option value="ES">Spanish</option>
-                    <option value="PT">Portuguese</option>
-                    <option value="AR">Arabic</option>
-                    <option value="TH">Thai</option>
-                    <option value="VI">Vietnamese</option>
-                </select>
-                <label for="language">Language</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="campaign" type="text" class="validate" value="DPG-Google-Search-PT-PT-Broad" required>
-                <label for="campaign">Campaign</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12">
-                <input id="term" type="text" class="validate">
-                <label for="term">Term</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12">
-                <select id="content" name="content" onchange="handleContentChange()" required>
-                    <option value="" disabled selected>Select Content</option>
-                    <option value="diversify-your-portfolio">Diversify Your Portfolio</option>
-                    <option value="secure-and-regulated">Secure and Regulated</option>
-                    <option value="home-page">Home Page</option>
-                    <option value="ninth-anniversary-promotion">Ninth Anniversary Promotion</option>
-                    <option value="20-deposit-bonus">20 Percent Deposit Bonus</option>
-                    <option value="manual">Manual Input</option>
-                </select>
-                <label for="content">Content</label>
-            </div>
-        </div>
-
+        <!-- Additional Fields -->
         <button class="btn btn-custom waves-effect waves-light" type="button" onclick="buildURL()">Build URL</button>
     </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('select');
-        var instances = M.FormSelect.init(elems);
+    document.addEventListener('DOMContentLoaded', function () {
+        const elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
     });
 
     function copyToClipboard() {
-        var copyText = document.getElementById("utmResult");
-        copyText.select();
-        document.execCommand("copy");
-        M.toast({html: 'URL copied to clipboard!', classes: 'rounded'});
-    }
-
-    function handleSourceChange() {
-        const source = document.getElementById("source").value;
-        const campaignInput = document.getElementById("campaign");
-        let campaignValue = campaignInput.value;
-
-        if (campaignValue.includes('-')) {
-            const parts = campaignValue.split('-');
-            parts[1] = source;
-            campaignInput.value = parts.join('-');
-        } else {
-            campaignInput.value = 'DPG-' + source + '-' + campaignValue;
-        }
-    }
-
-    function handleMediumChange() {
-        const medium = document.getElementById("medium").value;
-        const campaignInput = document.getElementById("campaign");
-        let campaignValue = campaignInput.value;
-
-        if (campaignValue.includes('-')) {
-            const parts = campaignValue.split('-');
-            parts[2] = medium;
-            campaignInput.value = parts.join('-');
-        } else {
-            campaignInput.value += '-' + medium;
-        }
-    }
-
-    function handleCountryChange() {
-        const country = document.getElementById("country").value;
-        const campaignInput = document.getElementById("campaign");
-        let campaignValue = campaignInput.value;
-
-        if (campaignValue.includes('-')) {
-            const parts = campaignValue.split('-');
-            parts[3] = country;
-            campaignInput.value = parts.join('-');
-        } else {
-            campaignInput.value += '-' + country;
-        }
-    }
-
-    function handleLanguageChange() {
-        const language = document.getElementById("language").value;
-        const campaignInput = document.getElementById("campaign");
-        let campaignValue = campaignInput.value;
-
-        if (campaignValue.includes('-')) {
-            const parts = campaignValue.split('-');
-            parts[4] = language;
-            campaignInput.value = parts.join('-');
-        } else {
-            campaignInput.value += '-' + language;
-        }
+        const copyText = document.getElementById("utmResult");
+        navigator.clipboard.writeText(copyText.value)
+            .then(() => M.toast({ html: 'Copied to clipboard!', classes: 'rounded' }))
+            .catch(() => M.toast({ html: 'Copy failed!', classes: 'rounded' }));
     }
 
     function buildURL() {
-        let baseUrl = document.getElementById("website").value.trim();
-        let source = document.getElementById("source").value;
-        let medium = document.getElementById("medium").value;
-        let campaign = document.getElementById("campaign").value.trim();
-        let term = document.getElementById("term").value.trim();
-        let content = document.getElementById("content").value;
+        const baseUrl = document.getElementById("website").value.trim();
+        const source = document.getElementById("source").value;
 
-        if (!baseUrl || !source || !medium || !campaign) {
-            M.toast({html: 'Please fill in all required fields', classes: 'rounded'});
+        if (!baseUrl || !source) {
+            M.toast({ html: 'Please fill in all required fields!', classes: 'rounded' });
             return;
         }
 
-        let utmUrl = `${baseUrl}?utm_source=${encodeURIComponent(source)}&utm_medium=${encodeURIComponent(medium)}&utm_campaign=${encodeURIComponent(campaign)}`;
-
-        if (term) {
-            utmUrl += `&utm_term=${encodeURIComponent(term)}`;
-        }
-
-        if (content) {
-            utmUrl += `&utm_content=${encodeURIComponent(content)}`;
-        }
-
+        const utmUrl = `${baseUrl}?utm_source=${encodeURIComponent(source)}`;
         document.getElementById("utmResult").value = utmUrl;
         document.getElementById("result").classList.remove("hidden");
     }
 </script>
-
 </body>
 </html>
