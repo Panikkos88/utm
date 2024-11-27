@@ -152,10 +152,10 @@
 
         if (campaignValue.includes('-')) {
             const parts = campaignValue.split('-');
-            parts[0] = source;
+            parts[1] = source;
             campaignInput.value = parts.join('-');
         } else {
-            campaignInput.value = source + '-' + campaignValue;
+            campaignInput.value = 'DPG-' + source + '-' + campaignValue;
         }
     }
 
