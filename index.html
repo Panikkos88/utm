@@ -160,7 +160,7 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="campaignName" type="text" class="validate" value="DPG-Google-Search-US-EN" readonly>
+                    <input id="campaignName" type="text" class="validate" value="DPG-Google-Search-US-EN">
                     <label for="campaignName">Campaign Name</label>
                 </div>
             </div>
@@ -217,13 +217,14 @@
         const country = document.getElementById("countryModifier").value;
         const language = document.getElementById("languageModifier").value;
 
+        const campaignInput = document.getElementById("campaignName");
         let campaignName = "DPG";
         if (source) campaignName += `-${source}`;
         if (medium) campaignName += `-${medium}`;
         if (country) campaignName += `-${country}`;
         if (language) campaignName += `-${language}`;
 
-        document.getElementById("campaignName").value = campaignName;
+        campaignInput.value = campaignName;
     }
 
     function buildURL() {
