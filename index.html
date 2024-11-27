@@ -92,7 +92,7 @@
 
         <div class="row">
             <div class="input-field col s12">
-                <input id="campaign" type="text" class="validate" value="DPG - Search - Brazil - Portuguese - Broad" required>
+                <input id="campaign" type="text" class="validate" value="DPG-Search-Brazil-Portuguese-Broad" required>
                 <label for="campaign">Campaign</label>
             </div>
         </div>
@@ -143,6 +143,20 @@
         copyText.select();
         document.execCommand("copy");
         M.toast({html: 'URL copied to clipboard!', classes: 'rounded'});
+    }
+
+    function handleSourceChange() {
+        const source = document.getElementById("source").value;
+        const campaignInput = document.getElementById("campaign");
+        let campaignValue = campaignInput.value;
+
+        if (campaignValue.includes('-')) {
+            const parts = campaignValue.split('-');
+            parts[0] = source;
+            campaignInput.value = parts.join('-');
+        } else {
+            campaignInput.value = source + '-' + campaignValue;
+        }
     }
 
     function buildURL() {
