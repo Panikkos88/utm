@@ -309,14 +309,14 @@
             return;
         }
 
-        let utmUrl = ${baseUrl}?utm_source=${encodeURIComponent(source)}&utm_medium=${encodeURIComponent(medium)}&utm_campaign=${encodeURIComponent(campaign)};
+        let utmUrl = `${baseUrl}?utm_source=${encodeURIComponent(source)}&utm_medium=${encodeURIComponent(medium)}&utm_campaign=${encodeURIComponent(campaign)}`;
 
         if (term) {
-            utmUrl += &utm_term=${encodeURIComponent(term)};
+            utmUrl += `&utm_term=${encodeURIComponent(term)}`;
         }
 
         if (content) {
-            utmUrl += &utm_content=${encodeURIComponent(content)};
+            utmUrl += `&utm_content=${encodeURIComponent(content)}`;
         }
 
         document.getElementById("utmResult").value = utmUrl;
