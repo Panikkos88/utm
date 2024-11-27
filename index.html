@@ -68,22 +68,6 @@
         .toast {
             border-radius: 5px;
         }
-        .tooltip {
-            position: relative;
-        }
-        .tooltip:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #2c3e50;
-            color: #fff;
-            font-size: 0.8rem;
-            padding: 5px 10px;
-            border-radius: 5px;
-            white-space: nowrap;
-        }
         @media (max-width: 600px) {
             .container {
                 padding: 15px;
@@ -109,15 +93,16 @@
 </head>
 <body>
 <div class="container center-align">
-    <img src="https://www.dooprime.com/wp-content/themes/DP3-1104/style/images/common/Man_Utd_x_Doo_mobile.png" alt="Dooprime Logo" class="logo">
-    <h5 class="header">Enhanced UTM Generator for DooPrime Global Team</h5>
+    <!-- Logo -->
+    <img src="https://www.dooprime.com/wp-content/themes/DP3-1104/style/images/common/Man_Utd_x_Doo_mobile.png" alt="Dooprime Logo" class="logo mx-auto">
 
+    <h5 class="header">Simple UTM Generator for DooPrime Global Team</h5>
     <div id="result" class="hidden">
         <h4>Generated URL:</h4>
         <div class="row">
             <div class="input-field col s12">
                 <textarea id="utmResult" class="materialize-textarea" readonly rows="4" style="overflow: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px; height: 120px;"></textarea>
-                <i class="far fa-copy copy-icon tooltip" data-tooltip="Copy to clipboard" onclick="copyToClipboard()"></i>
+                <i class="far fa-copy copy-icon" onclick="copyToClipboard()" aria-label="Copy to clipboard"></i>
             </div>
         </div>
     </div>
@@ -127,47 +112,77 @@
             <div class="input-field col s12">
                 <input id="website" type="url" class="validate" value="https://www.dooprime.com/en/" required>
                 <label for="website">Website URL</label>
+                <span class="helper-text" data-error="Please enter a valid URL"></span>
             </div>
         </div>
+
         <div class="row">
             <div class="input-field col s12">
-                <select id="source" required>
+                <select id="source" name="source" onchange="handleSourceChange()" required>
                     <option value="" disabled selected>Select Source</option>
                     <option value="Google">Google</option>
                     <option value="Facebook">Facebook</option>
-                    <!-- More options -->
+                    <option value="CRM">CRM</option>
+                    <!-- Other options -->
                 </select>
                 <label for="source">Source</label>
             </div>
         </div>
-        <!-- Additional Fields -->
+
+        <div class="row">
+            <div class="input-field col s12">
+                <select id="medium" name="medium" onchange="handleMediumChange()" required>
+                    <option value="" disabled selected>Select Medium</option>
+                    <option value="Social">Social</option>
+                    <option value="Display">Display</option>
+                    <!-- Other options -->
+                </select>
+                <label for="medium">Medium</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="campaign" type="text" class="validate" value="DPG-Google-Search-PT-PT-Broad" required>
+                <label for="campaign">Campaign</label>
+            </div>
+        </div>
+
         <button class="btn btn-custom waves-effect waves-light" type="button" onclick="buildURL()">Build URL</button>
     </form>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const elems = document.querySelectorAll('select');
-        M.FormSelect.init(elems);
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
     });
 
     function copyToClipboard() {
         const copyText = document.getElementById("utmResult");
+        if (!copyText.value.trim()) {
+            M.toast({html: 'Nothing to copy!', classes: 'rounded'});
+            return;
+        }
         navigator.clipboard.writeText(copyText.value)
-            .then(() => M.toast({ html: 'Copied to clipboard!', classes: 'rounded' }))
-            .catch(() => M.toast({ html: 'Copy failed!', classes: 'rounded' }));
+            .then(() => M.toast({html: 'URL copied to clipboard!', classes: 'rounded'}))
+            .catch(() => M.toast({html: 'Copy failed!', classes: 'rounded'}));
     }
 
     function buildURL() {
         const baseUrl = document.getElementById("website").value.trim();
         const source = document.getElementById("source").value;
+        const medium = document.getElementById("medium").value;
+        const campaign = document.getElementById("campaign").value.trim();
 
-        if (!baseUrl || !source) {
-            M.toast({ html: 'Please fill in all required fields!', classes: 'rounded' });
+        if (!baseUrl || !source || !medium || !campaign) {
+            M.toast({html: 'Please fill in all required fields', classes: 'rounded'});
             return;
         }
 
-        const utmUrl = `${baseUrl}?utm_source=${encodeURIComponent(source)}`;
+        let utmUrl = `${baseUrl}?utm_source=${encodeURIComponent(source)}&utm_medium=${encodeURIComponent(medium)}&utm_campaign=${encodeURIComponent(campaign)}`;
         document.getElementById("utmResult").value = utmUrl;
         document.getElementById("result").classList.remove("hidden");
     }
