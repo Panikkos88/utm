@@ -102,13 +102,7 @@
     <img src="https://www.dooprime.com/wp-content/themes/DP3-1104/style/images/common/Man_Utd_x_Doo_mobile.png" alt="Dooprime Logo" class="logo mx-auto">
 
     <h5 class="header">Simple UTM Generator for DooPrime Global Team</h5>
-    <div id="result" class="hidden">
-        <h4>Generated URL:</h4>
-        <div class="row">
-            <div class="input-field col s12">
-                <textarea id="utmResult" class="materialize-textarea" readonly rows="4" style="overflow: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px; height: 120px;"></textarea>
-                <i class="far fa-copy copy-icon" onclick="copyToClipboard()"></i>
-            </div>
+    
         </div>
     </div>
 
@@ -226,6 +220,17 @@
         </div>
 
         <button class="btn btn-custom waves-effect waves-light" type="button" onclick="buildURL()">Build URL</button>
+            <div class="card">
+            <div id="result" class="hidden">
+                <h4>Generated URL:</h4>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="utmResult" class="materialize-textarea" readonly rows="4" style="overflow: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px; height: 120px;"></textarea>
+                        <i class="far fa-copy copy-icon" onclick="copyToClipboard()"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 
