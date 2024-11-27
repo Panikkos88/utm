@@ -477,12 +477,13 @@
             return;
         }
 
-        let finalURL = `${baseUrl}?utm_source=${encodeURIComponent(source)}
+        let finalURL = `${baseUrl}?utm_campaign=${encodeURIComponent(campaign)}`;
+
+        if (source) finalURL += `&utm_source=${encodeURIComponent(source)}`;
         if (medium) finalURL += `&utm_medium=${encodeURIComponent(medium)}`;
-         if (campaing) finalURL += `&utm_campaign=${encodeURIComponent(campaign)}`;
         if (term) finalURL += `&utm_term=${encodeURIComponent(term)}`;
         if (content) finalURL += `&utm_content=${encodeURIComponent(content)}`;
-        
+
         const resultField = document.getElementById("utmResult");
         resultField.value = finalURL;
         document.getElementById("result").style.display = "block";
