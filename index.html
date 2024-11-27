@@ -159,6 +159,20 @@
         }
     }
 
+    function handleMediumChange() {
+        const medium = document.getElementById("medium").value;
+        const campaignInput = document.getElementById("campaign");
+        let campaignValue = campaignInput.value;
+
+        if (campaignValue.includes('-')) {
+            const parts = campaignValue.split('-');
+            parts[2] = medium;
+            campaignInput.value = parts.join('-');
+        } else {
+            campaignInput.value += '-' + medium;
+        }
+    }
+
     function buildURL() {
         let baseUrl = document.getElementById("website").value.trim();
         let source = document.getElementById("source").value;
