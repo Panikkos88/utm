@@ -396,9 +396,29 @@
                     <label for="languageModifier">Language Modifier</label>
                 </div>
             </div>
+
+  <div class="row">
+                <div class="input-field col s6">
+                
+<div class="input-field col s6">
+                    <select id="languageModifier" onchange="updateCampaignName()">
+                        <option value="" disabled selected>Select Language</option>
+                        <option value="EN">English</option>
+                        <option value="ES">Spanish</option>
+                        <option value="PT">Portuguese</option>
+                        <option value="AR">Arabic</option>
+                        <option value="TH">Thai</option>
+                        <option value="VI">Vietnamese</option>
+                    </select>
+                    <label for="languageModifier">Language Modifier</label>
+                </div>                </div>
+            </div>
+
+
+            
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="campaignName" type="text" class="validate" value="DPG-Google-Search-US-EN">
+                    <input id="campaignName" type="text" class="validate" value="DPG-Google-Search-US-EN-Generic-Broad">
                     <label for="campaignName">Campaign Name</label>
                 </div>
             </div>
@@ -454,6 +474,7 @@
         const medium = document.getElementById("mediumModifier").value;
         const country = document.getElementById("countryModifier").value;
         const language = document.getElementById("languageModifier").value;
+                        const campaignthemename = document.getElementById("campaignthemenameModifier").value;
 
         const campaignInput = document.getElementById("campaignName");
         let campaignName = "DPG";
@@ -461,6 +482,7 @@
         if (medium) campaignName += `-${medium}`;
         if (country) campaignName += `-${country}`;
         if (language) campaignName += `-${language}`;
+                         if (campaignthemename) campaignName += `-${campaignthemename}`;
 
         campaignInput.value = campaignName;
     }
