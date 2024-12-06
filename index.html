@@ -496,30 +496,31 @@
         campaignInput.value = campaignName;
     }
 
-    function buildURL() {
-        const baseUrl = document.getElementById("website").value.trim();
-        const source = document.getElementById("utmSource").value.trim();
-        const medium = document.getElementById("utmMedium").value.trim();
-        const campaign = document.getElementById("campaignName").value.trim();
-        const term = document.getElementById("utmTerm").value.trim();
-        const content = document.getElementById("utmContent").value.trim();
+function buildURL() {
+    const baseUrl = document.getElementById("website").value.trim();
+    const source = document.getElementById("utmSource").value.trim();
+    const medium = document.querySelector("#languageModifier").value.trim(); // Corrected selector
+    const campaign = document.getElementById("campaignName").value.trim();
+    const term = document.getElementById("utmTerm").value.trim();
+    const content = document.getElementById("utmContent").value.trim();
 
-        if (!baseUrl) {
-            alert("Please enter a valid website URL.");
-            return;
-        }
-
-        let finalURL = `${baseUrl}?utm_campaign=${encodeURIComponent(campaign)}`;
-
-        if (source) finalURL += `&utm_source=${encodeURIComponent(source)}`;
-        if (medium) finalURL += `&utm_medium=${encodeURIComponent(medium)}`;
-        if (term) finalURL += `&utm_term=${encodeURIComponent(term)}`;
-        if (content) finalURL += `&utm_content=${encodeURIComponent(content)}`;
-
-        const resultField = document.getElementById("utmResult");
-        resultField.value = finalURL;
-        document.getElementById("result").style.display = "block";
+    if (!baseUrl) {
+        alert("Please enter a valid website URL.");
+        return;
     }
+
+    let finalURL = `${baseUrl}?utm_campaign=${encodeURIComponent(campaign)}`;
+
+    if (source) finalURL += `&utm_source=${encodeURIComponent(source)}`;
+    if (medium) finalURL += `&utm_medium=${encodeURIComponent(medium)}`;
+    if (term) finalURL += `&utm_term=${encodeURIComponent(term)}`;
+    if (content) finalURL += `&utm_content=${encodeURIComponent(content)}`;
+
+    const resultField = document.getElementById("utmResult");
+    resultField.value = finalURL;
+    document.getElementById("result").style.display = "block";
+}
+
 
     function copyToClipboard() {
         const copyText = document.getElementById("utmResult");
