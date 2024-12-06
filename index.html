@@ -398,19 +398,16 @@
             </div>
 
   <div class="row">
-                <div class="input-field col s12">
-                
-<div class="input-field col s6">
+                <div class="input-field col s12">                
+<div class="input-field col s12">
                     <select id="campaignthemenameModifier" onchange="updateCampaignName()">
                         <option value="" disabled selected>Select Theme</option>
                         <option value="Generic-Broad">Generic Broad</option>
-                        <option value="Generic-Brand">Generic Brand</option>
-                     
+                        <option value="Generic-Brand">Generic Brand</option>  
                     </select>
                     <label for="campaignthemenameModifier">Campaign Theme Modifier</label>
                 </div>            
                 </div>               
-
             </div>
 
 
@@ -432,8 +429,21 @@
                     <label for="utmSource">Campaign ID</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="utmMedium" type="text" placeholder="Enter UTM Medium">
-                    <label for="utmMedium">UTM Medium</label>
+                          <select id="utmSource">
+                        <option value="" disabled selected>Select Medium</option>
+                        <option value="Google">Google</option>
+                        <option value="Social">Social</option>
+                        <option value="Email">Email</option>
+                        <option value="Media-buy">Media-buy</option>
+                        <option value="Ebook">Ebook</option>
+                        <option value="Influencer">Influencer</option>
+                        <option value="Blog">Blog</option>
+                        <option value="Remarketing">Remarketing</option>
+                        <option value="Expo">Expo</option>
+                        <option value="Seminar">Seminar</option>
+                        
+                    </select>
+                    <label for="utmSource">UTM Source</label>
                 </div>
             </div>
             <div class="row">
